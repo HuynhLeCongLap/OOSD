@@ -21,25 +21,26 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests((auth) ->
-                auth
-                    .requestMatchers("/logon", "/register", "/assets/**").permitAll()
-                    .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                    .requestMatchers("/posts/**", "/admin/**").hasAnyAuthority("USER", "ADMIN")
-                    .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/logon")
-                .loginProcessingUrl("/logon")
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/logon?error=true")
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutSuccessUrl("/logon?logout")
-                .permitAll()
-            );
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests((auth) ->
+                        auth
+                                .requestMatchers("/logon", "/register", "/assets/**").permitAll() // Cho phép truy cập không cần xác thực
+                                .requestMatchers("/posts/**").permitAll() // Cho phép tất cả mọi người truy cập trang posts
+                                .requestMatchers("/admin/**").hasAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập /admin/**
+                                .requestMatchers("/posts/**", "/admin/**").hasAnyAuthority("USER", "ADMIN") // Cho phép USER và ADMIN truy cập các trang liên quan đến posts và admin
+                                .anyRequest().authenticated() // Các request khác cần xác thực
+                )
+                .formLogin(form -> form
+                        .loginPage("/logon")
+                        .loginProcessingUrl("/logon")
+                        .defaultSuccessUrl("/", true)
+                        .failureUrl("/logon?error=true")
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/logon?logout")
+                        .permitAll()
+                );
         return http.build();
     }
 

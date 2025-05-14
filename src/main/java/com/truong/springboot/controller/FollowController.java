@@ -42,7 +42,7 @@ public class FollowController {
             User currentUser = userService.findByUsername(principal.getName());
             User userToFollow = userService.findById(userId);
             followService.followUser(currentUser, userToFollow);
-            redirectAttributes.addFlashAttribute("successMessage", "Followed user successfully");
+            redirectAttributes.addFlashAttribute("successMessage", "Đã theo dõi người dùng thành công");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
@@ -55,7 +55,7 @@ public class FollowController {
             User currentUser = userService.findByUsername(principal.getName());
             User userToUnfollow = userService.findById(userId);
             followService.unfollowUser(currentUser, userToUnfollow);
-            redirectAttributes.addFlashAttribute("successMessage", "Unfollowed user successfully");
+            redirectAttributes.addFlashAttribute("successMessage", "Đã bỏ theo dõi người dùng thành công");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }

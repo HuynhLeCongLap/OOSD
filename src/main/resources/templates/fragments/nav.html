@@ -4,13 +4,13 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Social Network</a>
         <div class="navbar-nav ms-auto">
-            <a sec:authorize="isAuthenticated()" th:href="@{/posts}" class="nav-link">Posts</a>
-            <a sec:authorize="isAuthenticated()" th:href="@{/users}" class="nav-link">Users</a>
-            <a sec:authorize="isAuthenticated()" th:href="@{/follows}" class="nav-link">Follows</a>
-            <span sec:authorize="isAuthenticated()" class="nav-link" th:text="'Hello, ' + ${#authentication.name}"></span>
-            <a sec:authorize="isAuthenticated()" class="nav-link" href="/logout">Logout</a>
-            <a sec:authorize="!isAuthenticated()" class="nav-link" href="/logon">Login</a>
-            <a sec:authorize="!isAuthenticated()" class="nav-link" href="/register">Register</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/posts}" class="nav-link">Danh sách bài viết</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/users}" class="nav-link">Danh sách người dùng</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/follows}" class="nav-link">Danh sách theo dõi</a>
+            <span sec:authorize="isAuthenticated()" class="nav-link" th:text="'Xin chào, ' + ${#authentication.name}"></span>
+            <a sec:authorize="isAuthenticated()" class="nav-link" href="/logout">Đăng xuất</a>
+            <a sec:authorize="!isAuthenticated()" class="nav-link" href="/logon">Đăng nhập</a>
+            <a sec:authorize="!isAuthenticated()" class="nav-link" href="/register">Đăng kí</a>
         </div>
     </div>
 </nav>

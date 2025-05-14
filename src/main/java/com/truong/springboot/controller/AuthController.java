@@ -26,12 +26,12 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@ModelAttribute("user") User user, Model model, RedirectAttributes redirectAttributes) {
         if (userService.findByUsername(user.getUsername()) != null) {
-            model.addAttribute("error", "Username already exists");
+            model.addAttribute("error", "Tên người dùng đã tồn tại");
             return "register";
         }
         try {
             userService.saveUser(user);
-            redirectAttributes.addFlashAttribute("successMessage", "Registration successful! Please log in.");
+            redirectAttributes.addFlashAttribute("successMessage", "Đăng ký thành công! Vui lòng đăng nhập.");
             return "redirect:/logon";
         } catch (Exception e) {
             model.addAttribute("error", "Registration failed: " + e.getMessage());

@@ -29,10 +29,11 @@ public class PostController {
     private UserService userService;
 
     @GetMapping
-    public String listPosts(Model model) {
+    public String listPost(Model model)
+    {
         List<Post> posts = postService.getAllPosts();
         model.addAttribute("posts", posts);
-        return "post";
+        return "posts";
     }
 
     @GetMapping("/create")

@@ -5,19 +5,19 @@
     <nav th:replace="~{fragments/nav :: nav}"></nav>
 
     <header class="text-center p-5 bg-light">
-        <h1>Welcome to Social Network</h1>
-        <p class="lead">Share your thoughts and connect with friends.</p>
+        <h1>Chào mừng đến với Mạng xã hội</h1>
+        <p class="lead">Chia sẻ suy nghĩ của bạn và kết nối với bạn bè..</p>
         <div class="mt-4">
             <a sec:authorize="isAuthenticated()" href="/post/create" class="btn btn-primary btn-lg me-2">Thêm bài viết</a>
-            <a href="/users" class="btn btn-secondary btn-lg me-2">Explore Users</a>
+            <a href="/users" class="btn btn-secondary btn-lg me-2">Khám phá người dùng</a>
         </div>
     </header>
 
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-8">
-                <h2>Latest Posts</h2>
-                <a href="/posts" class="btn btn-primary mb-3">View All Posts</a>
+                <h2>Bài viết mới nhất</h2>
+                <a href="/posts" class="btn btn-primary mb-3">Xem tất cả bài viết</a>
                 <div th:each="post : ${posts}">
                     <div class="card mb-3">
                         <div class="card-body">
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <h2>Popular Users</h2>
+                <h2>Người dùng phổ biến</h2>
                 <ul class="list-group">
                     <li class="list-group-item" th:each="user : ${users}">
                         <a th:href="@{/users}" th:text="${user.username}"></a>
