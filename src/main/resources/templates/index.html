@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+    <nav th:replace="~{fragments/nav :: nav}"></nav>
+
+    <header class="text-center p-5 bg-light">
+        <h1>Welcome to Social Network</h1>
+        <p class="lead">Share your thoughts and connect with friends.</p>
+        <div class="mt-4">
+            <a sec:authorize="isAuthenticated()" href="/post/create" class="btn btn-primary btn-lg me-2">Thêm bài viết</a>
+            <a href="/users" class="btn btn-secondary btn-lg me-2">Explore Users</a>
+        </div>
+    </header>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Latest Posts</h2>
+                <a href="/posts" class="btn btn-primary mb-3">View All Posts</a>
+                <div th:each="post : ${posts}">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${post.title}"></h5>
+                            <p class="card-text" th:text="${post.content}"></p>
+                            <p class="card-text"><small class="text-muted" th:text="'Posted by: ' + ${post.user.username}"></small></p>
+                            <a th:href="@{/posts/{id}(id=${post.id})}" class="btn btn-sm btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h2>Popular Users</h2>
+                <ul class="list-group">
+                    <li class="list-group-item" th:each="user : ${users}">
+                        <a th:href="@{/users}" th:text="${user.username}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

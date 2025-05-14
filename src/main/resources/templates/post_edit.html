@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+    <nav th:replace="~{fragments/nav :: nav}"></nav>
+    <div class="container mt-5">
+        <h2>Edit Post</h2>
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+        <form th:action="@{/posts/edit/{id}(id=${post.id})}" th:object="${post}" method="post">
+            <div class="mb-3">
+                <label for="title" class="form-label">Tiêu Đề</label>
+                <input type="text" class="form-control" id="title" th:field="*{title}" required>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Nội Dung</label>
+                <textarea class="form-control" id="content" th:field="*{content}" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Lưu</button>
+            <a th:href="@{/posts}" class="btn btn-secondary">Thoát</a>
+        </form>
+    </div>
+</body>
+</html>

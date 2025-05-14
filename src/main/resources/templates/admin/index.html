@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+    <nav th:replace="~{fragments/nav :: nav}"></nav>
+    <div class="container mt-5">
+        <h2>Admin Dashboard</h2>
+        <p>Welcome to the admin dashboard. Manage users and posts here.</p>
+        <a th:href="@{/users}" class="btn btn-primary">Manage Users</a>
+        <a th:href="@{/posts}" class="btn btn-secondary">Manage Posts</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+    <nav th:replace="~{fragments/nav :: nav}"></nav>
+    <div class="container mt-5">
+        <h2>Posts</h2>
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+        <a th:href="@{/post/create}" class="btn btn-primary mb-3">Thêm bài viết mới</a>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="list-group">
+                    <div class="list-group-item mb-3" th:each="post : ${posts}">
+                        <h5 th:text="${posts.title}" class="mb-2"></h5>
+                        <p th:text="${posts.content}" class="mb-2"></p>
+                        <p th:text="${posts.created.postedAt}" class="mb-2"></p>
+                        <small th:text="'Posted by: ' + ${posts.user.username}" class="text-muted"></small>
+                        <div class="mt-2">
+                            <a th:href="@{/posts/{id}(id=${post.id})}" class="btn btn-sm btn-secondary">Xem bài viết</a>
+                            <a sec:authorize="isAuthenticated()" th:if="${#authentication.name == posts.user.username}" th:href="@{/posts/edit/{id}(id=${post.id})}" class="btn btn-sm btn-warning">Sửa</a>
+                            <a sec:authorize="isAuthenticated()" th:if="${#authentication.name == posts.user.username}" th:href="@{/posts/delete/{id}(id=${post.id})}" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có muốn xoá bài viết này không?')">Xoá</a>
+                        </div>
+                    </div>
+                    <div th:if="${posts.isEmpty()}" class="text-center">
+                        <p>Chưa có bài viết nào.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

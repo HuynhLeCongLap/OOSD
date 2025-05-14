@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+    <nav th:replace="~{fragments/nav :: nav}"></nav>
+    <div class="container mt-5">
+        <h2>User List</h2>
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.createdAt}"></td>
+                    <td>
+                        <div th:if="${user.id != currentUser.id}">
+                            <form th:if="${!isFollowing[user.id]}" th:action="@{/follows/follow/{id}(id=${user.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-primary btn-sm">Follow</button>
+                            </form>
+                            <form th:if="${isFollowing[user.id]}" th:action="@{/follows/unfollow/{id}(id=${user.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Unfollow</button>
+                            </form>
+                        </div>
+                        <span th:if="${user.id == currentUser.id}" class="text-muted">(You)</span>
+                    </td>
+                </tr>
+                <tr th:if="${users.isEmpty()}">
+                    <td colspan="3" class="text-center">No users available.</td>
+                </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/follows}" class="btn btn-secondary">View Follow List</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+    <nav th:replace="~{fragments/nav :: nav}"></nav>
+    <div class="container mt-5">
+        <h2>Follow List</h2>
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Following (<span th:text="${following.size()}"></span>)</h5>
+                    </div>
+                    <div class="card-body">
+                        <div th:if="${following.isEmpty()}" class="text-center">
+                            <p>You are not following anyone.</p>
+                        </div>
+                        <ul class="list-group" th:unless="${following.isEmpty()}">
+                            <li class="list-group-item d-flex justify-content-between align-items-center" th:each="user : ${following}">
+                                <span th:text="${user.username}"></span>
+                                <form th:action="@{/follows/unfollow/{id}(id=${user.id})}" method="post">
+                                    <button type="submit" class="btn btn-danger btn-sm">Unfollow</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Followers (<span th:text="${followers.size()}"></span>)</h5>
+                    </div>
+                    <div class="card-body">
+                        <div th:if="${followers.isEmpty()}" class="text-center">
+                            <p>No one is following you.</p>
+                        </div>
+                        <ul class="list-group" th:unless="${followers.isEmpty()}">
+                            <li class="list-group-item" th:each="user : ${followers}">
+                                <span th:text="${user.username}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3">
+            <a th:href="@{/users}" class="btn btn-secondary">Back to User List</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Social Network</a>
+        <div class="navbar-nav ms-auto">
+            <a sec:authorize="isAuthenticated()" th:href="@{/posts}" class="nav-link">Posts</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/users}" class="nav-link">Users</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/follows}" class="nav-link">Follows</a>
+            <span sec:authorize="isAuthenticated()" class="nav-link" th:text="'Hello, ' + ${#authentication.name}"></span>
+            <a sec:authorize="isAuthenticated()" class="nav-link" href="/logout">Logout</a>
+            <a sec:authorize="!isAuthenticated()" class="nav-link" href="/logon">Login</a>
+            <a sec:authorize="!isAuthenticated()" class="nav-link" href="/register">Register</a>
+        </div>
+    </div>
+</nav>
+</html>
