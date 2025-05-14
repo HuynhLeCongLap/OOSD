@@ -25,10 +25,10 @@ public class FollowService {
     @Transactional
     public void followUser(User followingUser, User followedUser) {
         if (followingUser.getId().equals(followedUser.getId())) {
-            throw new RuntimeException("You cannot follow yourself");
+            throw new RuntimeException("Bạn không thể theo dõi chính mình");
         }
         if (followRepository.findByFollowingUserAndFollowedUser(followingUser, followedUser).isPresent()) {
-            throw new RuntimeException("You are already following this user");
+            throw new RuntimeException("Bạn đã theo dõi người dùng này");
         }
 
         Follow follow = new Follow();
@@ -41,7 +41,7 @@ public class FollowService {
     @Transactional
     public void unfollowUser(User followingUser, User followedUser) {
         Follow follow = followRepository.findByFollowingUserAndFollowedUser(followingUser, followedUser)
-            .orElseThrow(() -> new RuntimeException("You are not following this user"));
+            .orElseThrow(() -> new RuntimeException("Bạn không theo dõi người dùng này"));
         followRepository.delete(follow);
     }
 
