@@ -19,7 +19,7 @@ import com.truong.springboot.entity.Post;
 import com.truong.springboot.entity.User;
 
 @Controller
-@RequestMapping("/post")
+@RequestMapping("/posts")
 public class PostController {
 
     @Autowired
@@ -50,8 +50,8 @@ public class PostController {
         User user = userService.findByUsername(principal.getName());
         post.setUser(user);
         postService.savePost(post);
-        redirectAttributes.addFlashAttribute("successMessage", "Post created successfully");
-        return "redirect:/post";
+        redirectAttributes.addFlashAttribute("successMessage", "Bài viết đã được tạo thành công");
+        return "redirect:/posts";
     }
 
     @GetMapping("/{id}")
@@ -84,7 +84,7 @@ public class PostController {
         existingPost.setContent(post.getContent());
         existingPost.setStatus(post.getStatus());
         postService.savePost(existingPost);
-        redirectAttributes.addFlashAttribute("successMessage", "Post updated successfully");
+        redirectAttributes.addFlashAttribute("successMessage", "Đã cập nhật bài đăng thành công");
         return "redirect:/posts";
     }
 
@@ -93,11 +93,11 @@ public class PostController {
         Post post = postService.getPostById(id);
         User user = userService.findByUsername(principal.getName());
         if (!post.getUser().getId().equals(user.getId())) {
-            redirectAttributes.addFlashAttribute("errorMessage", "You do not have permission to delete this post");
+            redirectAttributes.addFlashAttribute("errorMessage", "Bạn không có quyền xóa bài viết này");
             return "redirect:/posts";
         }
         postService.deletePost(id);
-        redirectAttributes.addFlashAttribute("successMessage", "Post deleted successfully");
+        redirectAttributes.addFlashAttribute("successMessage", "Bài viết đã được xóa thành công");
         return "redirect:/posts";
     }
 }
